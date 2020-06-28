@@ -2,6 +2,10 @@ import { canvas, ctx } from './canvas';
 import units from './units';
 import control from './control';
 import viewport from './viewport';
+import ui from './ui';
+import timers from './timers';
+
+import render from './render';
 
 const game = {
 
@@ -9,20 +13,28 @@ const game = {
 
 	init() {
 		units.init();
-		control.init(units.hero);
 		viewport.init(units.hero);
+		control.init(units.hero);
+		ui.init(units);
 	},
 
 	update() {
+		timers.update();
 		units.update();
+		ui.update();
+
 		viewport.update();
 	},
 
 	render() {
 		
+		ctx.clearRect(0, 0, canvas.width, canvas.height);
+
 		this._renderBackground();
 		this._renderMap();
-		this._renderUnits();
+
+		render.units(ctx, viewport, units);
+		render.ui(ctx, viewport, ui);
 
 	},
 

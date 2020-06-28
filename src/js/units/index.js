@@ -1,15 +1,15 @@
 import Unit from './Unit';
 
-const hero = new Unit(200, 200);
+const hero = new Unit(1, 200, 200);
 hero.color = 'darkblue';
 
 const list = [
-	new Unit(300, 300),
-	new Unit(500, 500),
-	new Unit(100, 100),
-	new Unit(150, 400),
-	new Unit(400, 150),
-	new Unit(450, 350)
+	new Unit(2, 300, 300),
+	new Unit(3, 500, 500),
+	new Unit(4, 100, 100),
+	new Unit(5, 150, 400),
+	new Unit(6, 400, 150),
+	new Unit(7, 450, 350)
 ];
 
 const units = {
