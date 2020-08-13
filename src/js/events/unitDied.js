@@ -1,10 +1,5 @@
-import { timers } from '../dependency';
-import { actions } from '../dependency';
-
-function unitDied(unit) {
-	timers.create(unit.id + 'unit-died', 3000, () => {
-		actions['revival'](unit);
-	});
+function unitDied(options) {
+	console.log('unit ' + options.unit.id + ' died');
 }
 
 export default unitDied;

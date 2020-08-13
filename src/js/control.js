@@ -1,4 +1,5 @@
 import { viewport } from './dependency';
+import { units } from './dependency';
 
 const control = {
 
@@ -22,12 +23,8 @@ const control = {
 		this.unit = unit;
 
 		document.addEventListener('mousemove', event => {
-			// if (this.mouse.x < unit.centerX) {
-			// 	unit.sightDirection = 'west';
-			// } else {
-			// 	unit.sightDirection = 'east';
-			// }
-			this._getSightDirection(unit);
+			this._setSightDirection(unit);
+			this._setTarget();
 		});
 
 		document.addEventListener('click', event => {
@@ -35,12 +32,18 @@ const control = {
 		});
 
 		document.addEventListener('keydown', event => {
+			// console.log(event.code);
+
 			if (event.code === 'KeyW') { this.unit.moveUp = true; }
 			if (event.code === 'KeyS') { this.unit.moveDown = true; }
 			if (event.code === 'KeyA') { this.unit.moveLeft = true; }
 			if (event.code === 'KeyD') { this.unit.moveRight = true; }
 
 			if (event.code === 'ShiftLeft') { this.unit.walk = true; }
+
+			if (event.code === 'Digit4') { this.unit.cast('heal'); }
+			if (event.code === 'Digit5') { this.unit.cast('revive'); }
+			if (event.code === 'Space') { this.unit.stopCast(); }
 		});
 
 		document.addEventListener('keyup', event => {
@@ -61,7 +64,7 @@ const control = {
 		})
 	},
 
-	_getSightDirection(unit) {
+	_setSightDirection(unit) {
 
 		const x = this.mouse.x;
 		const y = this.mouse.y;
@@ -84,8 +87,34 @@ const control = {
 		else if (y > y1 && y < y2) {
 			unit.sightDirection = 'east';
 		}
+	},
 
+	_setTarget() {
+		const units = this._getUnitsUnderCursor();
+		if (units.length) {
+			this.unit.target = units[0];
+		} else {
+			this.unit.target = null;
+		}
+	},
 
+	_getUnitsUnderCursor() {
+		const result = [];
+
+		for (let unit of units.list) {
+			if (this._isUnitUnderMouse(unit)) {
+				result.push(unit);
+			}
+		}
+
+		return result;
+	},
+
+	_isUnitUnderMouse(unit) {
+		if (this.mouse.x < unit.left || this.mouse.x > unit.right) return false;
+		if (this.mouse.y < unit.top || this.mouse.y > unit.bottom) return false;
+
+		return true;
 	},
 
 	_preventMouseDefault() {

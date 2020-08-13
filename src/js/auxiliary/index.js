@@ -4,13 +4,6 @@ import isPointInSightDirection from './isPointInSightDirection';
 import getDistanceBetweenUnits from './getDistanceBetweenUnits';
 import isUnitInRange from './isUnitInRange';
 
-// const auxiliary = {
-
-// 	getUnitsInSight
-
-// };
-
-// export default auxiliary;
 export { 
 	getPointDirection,
 	getUnitsInSight,

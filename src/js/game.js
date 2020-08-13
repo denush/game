@@ -4,6 +4,7 @@ import control from './control';
 import viewport from './viewport';
 import ui from './ui';
 import timers from './timers';
+import ai from './ai';
 
 import render from './render';
 
@@ -15,10 +16,12 @@ const game = {
 		units.init();
 		viewport.init(units.hero);
 		control.init(units.hero);
-		ui.init(units);
+		ui.init();
+		ai.init();
 	},
 
 	update() {
+		ai.update();
 		timers.update();
 		units.update();
 		ui.update();
@@ -41,16 +44,6 @@ const game = {
 	_renderBackground() {
 		ctx.fillStyle = this.backgroundColor;
 		ctx.fillRect(0, 0, canvas.width, canvas.height);
-	},
-
-	_renderUnits() {
-		const dx = viewport.x;
-		const dy = viewport.y;
-
-		for (let unit of units.list) {
-			ctx.fillStyle = unit.color;
-			ctx.fillRect(unit.x - dx, unit.y - dy, unit.width, unit.height);
-		}
 	},
 
 	_renderMap() {

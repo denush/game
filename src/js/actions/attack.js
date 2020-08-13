@@ -1,18 +1,19 @@
 import { getUnitsInSight } from '../auxiliary';
 import { isUnitInRange } from '../auxiliary';
 
-function attack(unit1) {
+function attack(options) {
 
-	const units = getUnitsInSight(unit1);
+	const unit = options.unit;
+	const targetList = getUnitsInSight(unit);
 
-	for (let unit2 of units) {
+	for (let target of targetList) {
 
-		if (unit2 === unit1) {
+		if (target === unit) {
 			continue;
 		}
 
-		if (isUnitInRange(unit1, unit2, unit1.attackRange)) {
-			unit2.currentHealth -= unit1.attackPower;
+		if (isUnitInRange(unit, target, unit.attackRange)) {
+			target.currentHealth -= unit.attackPower;
 		}
 	}
 }

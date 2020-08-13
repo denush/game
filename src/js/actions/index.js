@@ -1,14 +1,12 @@
 /*
-	Обработка состояния юнитов извне
+	Обработка взаимодействия юнитов
 */
 
 import attack from './attack';
-import revival from './revival';
 
 const actions = {
 
-	attack,
-	revival
+	attack
 
 };
 
